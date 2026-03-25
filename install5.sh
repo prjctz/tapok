@@ -437,6 +437,11 @@ ufw allow $PORT2
 # Включаем firewall
 ufw --force enable
 
+sed -i 's|net/ipv4/icmp_echo_ignore_all=0|net/ipv4/icmp_echo_ignore_all=1|g' /etc/ufw/sysctl.conf
+sed -i 's|net.ipv4.icmp_echo_ignore_all = 0|net.ipv4.icmp_echo_ignore_all = 1|g' /etc/sysctl.conf
+sysctl --system
+ufw reload
+
 echo "Статус UFW"
 ufw status verbose
 ufw status numbered
